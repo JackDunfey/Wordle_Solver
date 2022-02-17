@@ -19,6 +19,6 @@ def filtering_func(word):
         if status[0] not in word or word[status[1]] == status[0]:
             return False
     for status in letter_statuses["absent"]:
-        if status[0] in word:
+        if status[0] in word and status[0] not in letter_statuses["present"] and status[0] not in letter_statuses["correct"]:
             return False
     return True

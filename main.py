@@ -145,6 +145,10 @@ def run():
                         letter_statuses[status] += [new_el]
                 except:
                     send(word)
+                    if len(sys.argv) > 0 and sys.argv[1]:
+                        PressKey(CTRL)
+                        ClickKey(W)
+                        ReleaseKey(CTRL)
                     print("I just sent you a word")
                     exit(0)
 
@@ -162,8 +166,9 @@ def run():
 
 if __name__ == "__main__":
     while True:
-        if keyboard.is_pressed('space') or sys.argv[1] == "auto":
-            if sys.argv[1] == "auto":
-                click(605,27)
+        if keyboard.is_pressed('space') or len(sys.argv) > 0 and sys.argv[1] == "auto":
+            if len(sys.argv) > 0 and sys.argv[1] == "auto":
+                # click(1000,100)
+                click(300,200)
             break
     run()

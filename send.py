@@ -10,14 +10,7 @@ def send(word):
     sender_email = os.getenv("EMAIL")  # Enter your address
     receiver_email = os.getenv("MY_EMAIL")  # Enter receiver address
     password = os.getenv("PASSWORD")
-    message = f"""\
-    Subject: Today's Wordle
-
-    Hi Jack,
-
-    How are you today? You're looking great, as always.
-
-    In case you were wondering, today's wordle is {word}"""
+    message = f"Subject: Wordle Solved\n\nHi Jack,\n\nHow are you today? You're looking great, as always.\n\nIn case you were wondering, today's wordle is {word}"""
 
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:

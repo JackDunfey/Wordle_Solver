@@ -9,6 +9,4 @@ auth_token = env("AUTH_TOKEN")
 client = Client(account_sid, auth_token) 
 
 def send(word):
-    if word == words[0] or "": return
-    
     message = client.messages.create(messaging_service_sid=env("SERVICE_SID"), body=f"FYI, today's wordle is... {word}", from_=env("OUTGOING_PHONE_NUMBER"), to=env("RECIPIENT_PHONE_NUMBER")) 

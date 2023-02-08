@@ -1,18 +1,14 @@
-from json import load
-import smtplib, ssl
-import os
+from twilio.rest import Client 
+from os import getenv as env
 from dotenv import load_dotenv
+from words import *
 load_dotenv()
+ 
+account_sid = env("ACCOUNT_SID")
+auth_token = env("AUTH_TOKEN")
+client = Client(account_sid, auth_token) 
 
 def send(word):
-    port = 465  # For SSL
-    smtp_server = "smtp.gmail.com"
-    sender_email = os.getenv("EMAIL")  # Enter your address
-    receiver_email = os.getenv("MY_EMAIL")  # Enter receiver address
-    password = os.getenv("PASSWORD")
-    message = f"Subject: Wordle Solved\n\nHi Jack,\n\nHow are you today? You're looking great, as always.\n\nIn case you were wondering, today's wordle is {word}"""
-
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_email, message)
+    if word == words[0] or "": return
+    
+    message = client.messages.create(messaging_service_sid=env("SERVICE_SID"), body=f"FYI, today's wordle is... {word}", from_=env("OUTGOING_PHONE_NUMBER"), to=env("RECIPIENT_PHONE_NUMBER")) 

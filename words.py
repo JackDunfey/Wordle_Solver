@@ -1,12 +1,12 @@
-f = open("words.txt", "r")
-words = []
-for x in f:
-  words += [x[:-1].upper()]
-words[-1] += str(f)[-1][-1]
-
-
-# pdb.set_trace()
-# print(words)
+def get_all_words():
+    f = open("words.txt", "r")
+    words = []
+    for x in f:
+        words += [x[:-1].upper()]
+    print(words)
+    words[-1] += str(f)[-1][-1]
+    f.close()
+    return words
 
 def filtering_func(word, letter_statuses):
     for status in letter_statuses["correct"]:

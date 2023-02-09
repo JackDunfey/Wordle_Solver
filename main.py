@@ -8,8 +8,6 @@ from words import *
 import sys
 from send import send
 
-ALLOW_AUTO = False
-
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 screen = np.array(ImageGrab.grab())
@@ -157,10 +155,6 @@ def run(word_list, first=True, attempts=None):
             except Exception as e:
                 if "send" in sys.argv:
                     send(word)
-                if len(sys.argv) > 1 and sys.argv[1] == 'auto' and ALLOW_AUTO:
-                    PressKey(CTRL)
-                    ClickKey(W)
-                    ReleaseKey(CTRL)
                 print("I just sent you a word")
                 return
 
@@ -176,16 +170,23 @@ def run(word_list, first=True, attempts=None):
     print(words)
     run(words, False, attempts)
 
+first = True
+
 if __name__ == "__main__":
     while True:
-        while True:
-            if keyboard.is_pressed('enter') or len(sys.argv) > 1 and sys.argv[1] == "auto" and ALLOW_AUTO:
-                if len(sys.argv) > 1 and sys.argv[1] == "auto" and ALLOW_AUTO:
-                    # click(1000,100)
-                    click(300,200)
-                break
-            elif keyboard.is_pressed('space'):
-                exit()
+        if first or not "auto" in sys.argv:
+            print("Press enter to start, space to exit")
+            while True:
+                if keyboard.is_pressed('enter'):
+                    first = False
+                    break
+                elif keyboard.is_pressed('space'):
+                    exit()
         run(get_all_words())
+        if "auto" in sys.argv:
+            sleep(2.5)
+            click(520, 575)
+            click(300, 300)
+            sleep(1.5)
 
 # FIXME: auto currently doesn't work because Wordle added new menu

@@ -13,9 +13,9 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 screen = np.array(ImageGrab.grab())
 
 # COLORS (check using main.py and looking at frame color values detected)
-YELLOW = (81, 180, 198)
+_,YELLOW = (81, 180, 198), (88, 180, 201)
 GRAY = (126, 124, 120)
-GREEN = (97, 170, 113)
+_,GREEN = (97, 170, 113), (100, 170, 106)
 WHITE = (255, 255, 255)
 
 COLORS = {
@@ -158,12 +158,12 @@ def run(word_list, first=True, attempts=None):
                 print("I just sent you a word")
                 return
 
-    for y, row in enumerate(board[:len(attempts)]):
-        for x, col in enumerate(row):
-            for letter in attempts[y][x]:
-                contained_letters = list(map(lambda x: x[0], letter_statuses["present"]+letter_statuses["correct"]))
-                if letter in contained_letters and letter in list(map(lambda x: x[0], letter_statuses["absent"])):
-                    print(f"{letter} occurs {get_count(contained_letters, letter)} times") # Counter works
+    # for y, row in enumerate(board[:len(attempts)]):
+    #     for x, col in enumerate(row):
+    #         for letter in attempts[y][x]:
+    #             contained_letters = list(map(lambda x: x[0], letter_statuses["present"]+letter_statuses["correct"]))
+    #             if letter in contained_letters and letter in list(map(lambda x: x[0], letter_statuses["absent"])):
+    #                 print(f"{letter} occurs {get_count(contained_letters, letter)} times") # Counter works
     words = list(filter(lambda word: filtering_func(word, letter_statuses), words))
     if word in words:
         words.remove(word)
